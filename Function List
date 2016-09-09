@@ -1,0 +1,759 @@
+useItem
+
+function useItem(x,y,z,itemId,blockId,side,itemDamage,blockDamage);
+This executes a specified function when an item is used, or when a block is tapped
+This can be used to find out:
+On which block an item was used on
+The item's ID
+The block's ID
+On which side of the block the item was used
+The item's Damage/Data/Durability
+The block's Damage/Data
+The parameters x, y, z, itemId, blockId, side, itemDamage, blockDamage accept numbers
+example:
+
+function useItem(x, y, z, itemId, blockId, side, itemDamage, blockDamage) {
+    if (itemId==280) {
+        clientMessage("You touched a block with a stick");
+    }
+}
+attackHook
+
+function attackHook(attacker,victim);
+This executes a specified function when the player taps or attacks another mob
+This can be used to execute functions on the player, as well as the victim
+The parameters attacker, victim accept a native entity
+example:
+
+function attackHook(attacker, victim) {
+    if (attacker == Player.getEntity()) {
+        clientMessage("Sir, you shouldn't attack others.");
+    } else {
+        clientMessage("Sir, you are under attack!");
+    }
+}
+modTick
+
+function modTick();
+This can be used for executing timed functions
+This executes a specified function once every twentienth of a second (20 times per second)
+Accepts no parameters
+preventDefault() in this hook is useless
+example:
+
+function modTick() {
+    clientMessage("Spam...!"); //shows in chat 20 times a second
+}
+procCmd
+
+function procCmd(cmd);
+This executes the specified command when something is entered into the chat
+example:
+
+function procCmd(cmd) {
+    cmd = cmd.toLowerCase();
+    if (cmd == "help"){
+        clientMessage("Was this helpful enough?");
+    }
+}
+newLevel and leaveGame
+
+preventDefault() in these two hooks is useless
+function newLevel();
+This executes the specified function when the world starts generating
+Accepts no parameters
+example:
+
+function newLevel() {
+    clientMessage("Welcome player");
+}
+function leaveGame();
+This executes the specified function when the player leaves the world
+Accepts no parameters
+example:
+
+function leaveGame() {
+    print("Goodbye");
+}
+entityAdded and entityRemoved
+
+function entityAddedHook(entity);
+This hook is called when a new entity is added.
+Also includes arrows and falling blocks.
+example:
+
+function entityAddedHook(entity) {
+    if (Entity.getEntityTypeId(entity) == 33) {
+        clientMessage("Watch out, a creeper has spawned!");
+    }
+}
+function entityRemovedHook(entity);
+This hook is called when an entity despawns or dies.
+example:
+
+function entityRemovedHook(entity) {
+    if (Entity.getEntityTypeId(entity) == 81) { 
+        clientMessage("A snowball was thrown and has now broke.");
+    }
+}
+deathHook
+
+function deathHook(murderer, victim);
+This hook is called when a mob dies.
+Both parameters are NativeEntity.
+example:
+
+function deathHook(murderer, victim) {
+    if (Player.getEntity() == murderer) {
+        clientMessage("How could you?!");
+    }
+}
+levelEvent and blockEvent
+
+function levelEventHook(entity,eventType,x,y,z,data):
+Called when a door is opened or closed.
+The first parameter is equal to getPlayerEnt();
+All other parameters are int.
+function blockEventHook(x,y,z,eventType,data);
+Called every three seconds for chests to announce their opened/closed state.
+All parameters are int.
+Note: if you are adding a BlockLauncher-specific method, please add it to one of the namespaces (Entity, Level, ModPE, Player) instead of the top-level namespace.
+
+Text Functions
+
+These functions are used to display text
+
+print
+
+function print("text");
+This displays the specified text as a pop-up toast message
+The parameter text accepts a string
+clientMessage
+
+function clientMessage("text");
+This displays the specified text in the chat
+The parameter text accepts a string
+GET Functions
+
+These functions are used to get specified information, and do not make on screen changes
+
+getPlayerX, getPlayerY, getPlayerZ
+
+function getPlayerX();
+function getPlayerY();
+function getPlayerZ();
+This gets the player's current X, Y and Z coordinate
+Accepts no parameters
+getPlayerEnt
+
+function getPlayerEnt();
+This gets the player's native entity ID
+Accepts no parameters
+getYaw and getPitch
+
+These functions get values from the player's head rotation in degrees
+function getYaw(ent);
+This gets the entity's current yaw (left/right head rotation)
+Has an infinite highest and lowest value
+The parameter ent accepts a native entity
+If no parameter is specified, this will default to the player
+function getPitch(ent);
+This gets the entities's current pitch (up/down head rotation)
+Highest and lowest values are 90 and -90 respectively
+The parameter ent accepts a native entity
+If no parameter is specified, this will default to the player
+getGamemode
+
+function getGamemode(gamemode);
+Gets the world gamemode
+The parameter "gamemode" accepts a number
+Returns a string
+getCarriedItem
+
+function getCarriedItem();
+This gets the Data Value of the item or block the player is currently holding
+Accepts no parameters
+getTile
+
+function getTile(x,y,z);
+This gets the data value of the block at the specified coordinates
+The parameters x, y, z accept a number
+SET Functions
+
+These functions are used to set information and values
+
+setPosition
+
+function setPosition(ent,x,y,z);
+This sets the location of the specified entity to the specified coordinates
+The parameter ent accepts a native entity
+The parameters x, y, z accept a number
+If attackHook is not used, getPlayerEnt() can be used as the ent parameter
+setPositionRelative
+
+function setPositionRelative(ent,x,y,z);
+This sets the location of the specified entity relative to the current coordinates.
+The parameter ent accepts a native entity
+The parameters x, y, z accept a number
+If attackHook is not used, getPlayerEnt() should be used as the ent parameter
+setRot
+
+function setRot(ent,yaw,pitch);
+This sets the rotation of the specified entity's head to the specified yaw and pitch
+The parameter ent accepts a native entity
+The parameters yaw, pitch accept a number
+If attackHook is not used, getPlayerEnt() should be used as the ent parameter
+setVelX, setVelY, setVelZ
+
+function setVelX(ent,velocity);
+function setVelY(ent,velocity);
+function setVelZ(ent,velocity);
+This sets the X, Y, and Z velocities of the specified entity (respectively)
+The parameter ent accepts a native entity
+The parameter velocity accepts a number
+If attackHook is not used, getPlayerEnt() should be used as the ent parameter
+setGamemode
+
+function setGamemode(gamemode)
+Changes the player gamemode
+setTile
+
+function setTile(x,y,z,blockID,damageValue);
+This sets the specified Block ID at the specified X, Y, and Z coordinates
+The parameters x, y, z, blockID, damageValue accept a number
+setPlayerHealth
+
+function setPlayerHealth(halfHearts);
+This sets the specified health of the player
+The parameter halfHearts accepts a number
+Spawn Functions
+
+These are functions used to spawn entities
+
+spawnCow, spawnChicken, and spawnPigZombie
+
+function spawnCow(x,y,z,"image");
+function spawnChicken(x,y,z,"image");
+These spawn a cow or a chicken at the specified X, Y, and Z coordinates
+An image found in the assets folder of the Minecraft Pocket Edition archive can be used as the parameter "image"
+The parameters x, y, z accept a number
+The parameter image accepts a string
+Returns the entity spawned
+function spawnPigZombie(x,y,z,heldItemID,"image");
+This spawns a zombie pigman at the specified X, Y, and Z coordinates
+Accepts a data value for the heldItemID parameter
+An image found in the assets folder of the Minecraft Pocket Edition archive can be used as the parameter "image"
+The parameters x, y, z, heldItemID accept a number
+The parameter image accepts a string
+Returns the entity spawned
+Miscellaneous Functions
+
+These are functions that don't fit in other categories, and are more random than other functions
+
+explode
+
+function explode(x,y,z,radius);
+This causes an explosion, where the centre is at the specified X, Y and Z coordinates
+The size of the explosion is based upon the specified raduis
+The parameters x, y, z, radius accept a number
+rideAnimal
+
+function rideAnimal(player,target);
+This makes the player ride the target mob
+The parameters player, target accept a native entity
+addItemInventory
+
+function addItemInventory(ID,amount,damageValue);
+This adds the specified amount of the specified item/block to the player's inventory
+The parameters ID, amount, damageValue accept a number
+preventDefault
+
+function preventDefault();
+This prevents the default response of the action from occuring
+Accepts no parameters
+BlockLauncher-only Functions
+
+These functions are only available on BlockLauncher, and can be identified by the bl_ before the function name
+
+bl_spawnMob
+
+function bl_spawnMob(x,y,z,mobID,"image");
+Deprecated (shows toast/clientMessage "Nag: update to Level.spawnMob"), use Level.spawnMob instead
+This can spawn any mob found in Minecraft Pocket Edition, specified by the mobID, at the specified X, Y, and Z coordinates
+An image found in the assets folder of the Minecraft Pocket Edition archive can be used as the parameter image
+The parameters x, y, z, mobID accept a number
+The parameter image accepts a string
+bl_setMobSkin
+
+function setMobSkin(mob,"image");
+This sets the image of the specified mob
+An image found in the assets folder of the Minecraft Pocket Edition archive can be used as the parameter image
+If getPlayerEnt is not used, attackHook must be used
+The parameter mob accepts a native entity
+The parameter image accepts a string
+Object-Orientated Functions
+
+ModPE
+
+leaveGame
+
+function ModPE.leaveGame()
+Quits to the title screen. (warning: your script will cease to execute one tick later)
+Accepts no parameters
+overrideTexture
+
+function ModPE.overrideTexture("folder/targetTexture.png","http://example.org/potato.png");
+This overrides the specified target texture, and replaces it with the desired texture
+Not implemented in BlockLauncher as of version 1.4.5
+readData
+
+function ModPE.readData(key);
+This returns the value of the specified key, created by saveData
+This was bl_readData before BlockLauncher 1.4.5
+The parameter key accepts a string
+removeData
+
+function ModPE.removeData(key)
+Removes data stored with ModPE.saveData
+The parameter key accepts a string
+resetImages
+
+function ModPE.resetImages();
+Resets all textures and images to their defaults
+Accepts no parameters
+saveData
+
+function ModPE.saveData(key,value);
+This function can save any data
+Can be recalled by using the key on readData
+The parameters key, value accept a string
+This was bl_saveData before BlockLauncher 1.4.5
+setItem
+
+function ModPE.setItem(id,"texture",dataColourAmount,"name");
+This is used to create new, custom textured items, with custom names
+The texture's parameter use MCPE texture names, and is used to create the texture of the new item, based upon the items_opaque.png file
+setFoodItem
+
+function ModPE.setFoodItem(ID,imageX,imageY,halfHeartsHealed,"name");
+This is used to create new, custom textured food items, with custom names
+The parameters ID, imageX, imageY, halfHeartsHealed accept a number
+The parameter name accepts a string
+Only works on BlockLauncher 1.4.5 and later
+addCraftRecipe
+
+function Item.addCraftRecipe(id, count, damage, [inputid, inputcount, inputdamage, ...])
+This is used to add new crafting recipes
+The last parameter is an array of input materials.
+Only works on BlockLauncher 1.6.7 beta 2 and later
+Named ModPE.addCraftRecipe() In 1.6.7 beta 2
+example:
+
+Item.addCraftRecipe(256, 1, 0, [1, 1]); //gives iron shovel from stone ;)
+addShapedRecipe
+
+function Item.addShapedRecipe(id, count, damage, [topSquare, middleSquare, bottomSquare], [key, itemId, itemDamage,...])
+This is used to add new shaped crafting recipes
+Only works on BlockLauncher 1.7.1 or later
+example:
+
+Item.addShapedRecipe(256, 1, 0, [
+\\showing where the ingredients go
+" s ",
+" t ",
+" t "
+], 
+//now telling the game what the "s" and "t" mean (s is id of 1, damage 0)
+["s", 1, 0, "t", 280, 0]); //gives iron shovel from stone ;)
+addFurnaceRecipe
+
+function Item.addFurnaceRecipe(outputid,outputdamage,inputid);
+This is used to add new smelting recipes
+You can only specify item id in input (no damage)
+Only works on BlockLauncher 1.6.7 beta 2 and later
+Called ModPE.addFurnaceRecipe() Prior From 1.6.8+
+example:
+
+Item.addFurnaceRecipe(276,0,269); //gives a diamond sword from a wooden shovel :P
+setItemCategory
+
+function Item.setItemCategory(itemid,itemcategory);
+This is used to set the category the item appears in when the crafting table user interface appears.
+Item categories are ints but you should use the static constants from the ItemCategory class instead.
+ItemCategory.INTERNAL (int -1), ItemCategory.MATERIAL (int 1), ItemCategory.TOOL (int 2), ItemCategory.FOOD (int 4) or ItemCategory.DECORATION (int 8).
+ItemCategory class found here https://github.com/zhuowei/MCPELauncher/blob/master/src/net/zhuoweizhang/mcpelauncher/ItemCategory.java
+example:
+
+Item.setItemCategory(itemid,ItemCategory.FOOD); //sets item with id 256 to show in the FOOD category of the crafting table
+setGuiBlocks, setItems, setTerrain
+
+function ModPE.setGuiBlocks("http://example.org/potato.png");
+function ModPE.setItems("http://example.org/potato.png");
+function ModPE.setTerrain("http://example.org/potato.png")
+This overrides the current texture with the specified one.
+Must be a HTTP URL to a .png file
+Not implemented in BlockLauncher as of version 1.4.5
+Only Blocklauncher pro users can use these functions.
+joinServer
+
+function ModPE.joinServer("server ip","server port");
+This lets you join a server at any time.
+Type in the Port and IP and make it push and you will be put on the specified server.
+setGameSpeed
+
+function ModPE.setGameSpeed(ticks);
+Set the ticks in a second.
+The default is 20 ticks per second.
+Using this will reduce the time modTick() takes to push a function.
+This will speed up everything in the game when ticks are more than 20.
+takeScreenshot
+
+function ModPE.takeScreenshot("fileName");
+Take a screenshot using BlockLauncher's screenshot feature.
+The fileName parameter lets you change what you want the screenshot name to be.
+Level
+
+getGamemode
+
+function Level.getGamemode(gamemode);
+This is the same as [function getGamemode]
+explode
+
+function Level.explode(x,y,z,radius);
+This is the same as function explode
+getTile
+
+function Level.getTile(x,y,z);
+This is the same as function getTile
+Level.playSound
+
+function Level.playSound(getPlayerX(),getPlayerY(),getPlayerZ(), sound, volume, pitch);
+Plays a sound
+"sound" accepts any of the sounds from this list of sounds
+"volume" accepts a number
+"pitch" accepts a number
+example:
+
+function useItem(x,y,z,itemId,blockId,side){
+if(blockId==1){ //If block is stone
+Level.playSound(getPlayerX(),getPlayerY(),getPlayerZ(),"random.explode",30,25); //Play an explosion sound when stone is tapped
+
+
+     }
+}
+Level.playSoundEnt
+
+function Level.playSoundEnt(ent, sound, volume, pitch);
+
+Plays a sound around an entity
+"ent" accepts a Native entity id
+getData
+
+function Level.getData(x,y,z);
+This gets the damage value of the block at the specified coordinates
+The parameters x, y, z accept a number
+getWorldDir
+
+function Level.getWorldDir();
+This returns the name of the folder which stores the world files
+This was named bl_getWorldDir before BlockLauncher 1.4.5
+getWorldName
+
+function Level.getWorldName();
+This returns the world name stored in the world files
+Accepts no parameters
+This was named bl_getWorldName before BlockLauncher 1.4.5
+setChestSlot
+
+function Level.setChestSlot(x,y,z,slot,ID,damage,amount);
+All the parameters are integers.
+setTile
+
+function Level.setTile(x,y,z,blockID);
+This is the same as function setTile
+spawnChicken and spawnCow
+
+function Level.spawnChicken(x,y,z,"image");
+function Level.spawnCow(x,y,z,"image");
+This is the same as function spawnChicken and function spawnCow
+destroyBlock
+
+function destroyBlock(x,y,z,shouldDropItem);
+Executes exactly the same as the player long-click a block except that there is no progress circle. Particles are also shown.
+The first 3 parameters are integers.
+shouldDropItem is boolean (true/false)
+Player
+
+addItemInventory
+
+function Player.addItemInventory(ID,amount,damage);
+This is the same as function addItemInventory
+getCarriedItem
+
+function Player.getCarriedItem();
+This is the same as function getCarriedItem
+getEntity
+
+function Player.getEntity();
+This is the same as function getPlayerEnt
+getX, getY, and getZ
+
+function Player.getX();
+function Player.getY();
+function Player.getZ();
+These are the same as function getPlayerX, function getPlayerY, and function getPlayerZ
+addItemCreativeInv
+
+function Player.addItemCreativeInv(id,amount,damage);
+This is the exact same as Player.addItemInventory, except it adds items to the creative inventory.
+Does not work with custom items and custom blocks.
+setCanFly
+
+Player.setCanFly(1/0);
+Set Player to able to flying or not
+1 To Able , 0 to Disable
+Entity
+
+Entity.setNameTag
+
+function Entity.setNameTag(ent);
+Set Name Tag in Entites/Mobs Head
+getAnimalAge
+
+function Entity.getAnimalAge(ent);
+This returns the specified mob's age
+Ranges from -24000 to 0, where -24000 is a 'baby' mob, and 0 is an 'adult' mob
+Must be used with attackHook, as the player's age is always 0
+setAnimalAge
+
+function Entity.setAnimalAge(ent,age);
+This sets the specified animal's age
+Does not work with hostile mobs, or the player
+getEntityTypeId
+
+function Entity.getEntityTypeId(ent);
+This returns the specified mob's entity ID
+Must be used with attackHook
+getPitch and getYaw
+
+function Entity.getPitch(ent);
+function Entity.getYaw(ent);
+This is the same as function getPitch and function getYaw respectively
+getX, getY, and getZ
+
+function Entity.getX(ent);
+function Entity.getY(ent);
+function Entity.getZ(ent);
+These functions return the X, Y, and Z coordinates of the specified entity
+Must be used with attackHook
+remove
+
+function Entity.remove(ent);
+This removes the specified entity
+Must be used with attackHook
+If the player is removed, the player turns invisible, and cannot move
+The parameter ent accepts a native entity
+This was bl_removeEntity before BlockLauncher 1.4.5
+rideAnimal
+
+function Entity.rideAnimal(player,target);
+This is the same as function rideAnimal
+setCarriedItem
+
+function Entity.setCarriedItem(ent,ID,int,DamageValue);
+Only the player, skeletons and zombie pigmen can be used for the ent parameter
+Must be used with attackHook, unless the the specified ent is the player
+Parameter 3, int, is unknown
+setPosition and setPositionRelative
+
+function Entity.setPosition(ent,x,y,z);
+function Entity.setPositionRelative(ent,x,y,z);
+These are the same as function setPosition and function setPositionRelative respectively
+setRot
+
+function Entity.setRot(ent,yaw,pitch);
+This is the same as function setRot
+setVelX, setVelY, and setVelZ
+
+function Entity.setVelX(ent,vel);
+function Entity.setVelY(ent,vel);
+function Entity.setVelZ(ent,vel);
+These are the same as function setVelX, function setVelY and function setVelZ respectively
+spawnMob
+
+function Entity.spawnMob(x,y,z,mobID,"image");
+This is the same as function bl_spawnMob
+This has been moved again (sorry!) to Level.spawnMob. This still works, however, this variant of spawnMob will be removed soon.
+setRenderType
+
+function Entity.setRenderType(ent, type);
+Lets you use a different model for the mob passed in, for mob disguise.
+
+Must be used with attackHook, unless the the specified ent is the player or an entity returned from the spawning methods.
+
+For a list of render types, see the current list of known render types.
+
+addEffect
+
+function Entity.addEffect(entity, id, duration, amplification, ambient, showParticles);
+Adds a potion effect to the given mob. Entity passed in must be a mob.
+
+Duration is in ticks - so if you want 30 seconds, put in 30*20 or 600 ticks
+
+*　Example:
+
+Entity.addEffect(getPlayerEnt(), MobEffect.nightVision, 30*20, 0, false, true);//give player a nightVision effect for 30 sec
+The list of valid potion effect IDs:
+MobEffect.saturation
+MobEffect.absorption
+MobEffect.healthBoost
+MobEffect.wither
+MobEffect.poison
+MobEffect.weakness
+MobEffect.hunger
+MobEffect.nightVision
+MobEffect.blindness
+MobEffect.invisibility
+MobEffect.waterBreathing
+MobEffect.fireResistance
+MobEffect.damageResistance
+MobEffect.regeneration
+MobEffect.confusion
+MobEffect.jump
+MobEffect.harm
+MobEffect.heal
+MobEffect.damageBoost
+MobEffect.digSlowdown
+MobEffect.digSpeed
+MobEffect.movementSlowdown
+MobEffect.movementSpeed
+removeEffect
+
+function Entity.removeEffect(entity, id);
+Removes a potion effect from a mob.
+removeAllEffects
+
+function Entity.removeAllEffects(entity);
+Removes all potion effects from a mob.
+Block
+
+defineBlock
+
+function Block.defineBlock(id,"name","texture",materialSourceId,opaque,rendertype);
+Creates a custom block with textures and lots of special options with it.
+The parameter id lets you choose the custom block id, with maximum of 255.
+The parameter "name" is what you want the item name, although it must be in a string (" ").
+"texture" lets you choose the texture for the block. To see all the MCPE texture names go to Zhuowei's list of MCPE's texture names.
+The texture can be also put in an array, formatted like this:
+[["bottom texture",type],["top texture",type],["south texture",type],["north texture",type],["west texture",type],["east texture",type]]
+If you wanted to use a type texture, it's simple! Just put an array into the "texture" param and do the array like this: ["texture name",type]. It's that simple!
+materialSourceId doesn't really work. If it is not set it will not drop anything when the block is broken but nothing really happens (the noise always is walk over stone but all that will happen I believe is that it will become easier to break with axes for example.
+The opaque parameter is simple, if it is set to false, then in the inventory it will be displayed as transparent. If true though, then it will have blackness when held.
+The render types are used to render the block, but something annoying is: the block will still be (in shape) rendered as a full block. If you want to know the render types, go to the render type list and scroll down to block render types.
+setShape
+
+function Block.setShape(id,x1,y1,z1,x2,y2,z2);
+Sets the shape of a block.
+The id parameter lets you specify which block.
+Use all the x,y,z parameters to show shape.
+setColor
+
+function Block.setColor(id,color);
+Sets the color of a block in HTML.
+id is used to pick the block.
+To set the color, 1. Use an array like this: [] 2. Use 0x instead of # 3. Only use 6 letters/numbers for the HTML color. Example:
+Block.setColor(1,[0xFF0000]);
+setDestroyTime
+
+function Block.setDestroyTime(id,time);
+Sets the destroy time of a block.
+Does not use seconds per 1 in time. If you need to know the destroy times on blocks in Minecraft, go to the list of block destroy times.
+setExplosionResistance
+
+function Block.setExplosionResistance(id,resistance);
+Sets the explosive resistance of a block.
+In resistance, the resistance you put in, will be the exact same.
+The resistance is measured in how many explosions.
+So for example if you had 15 as it then 15 tnt explosions would destroy it.
+setLightLevel
+
+function Block.setLightLevel(id,level);
+Changes how much light the block can dispense.
+The maximum is 15 in the level parameter.
+15 is glowstone brightness and 10 is the brightness of redstone torches.
+setLightOpacity
+
+function Block.setLightOpacity(id,darkness);
+Changes how much light can pass through the block.
+The maximum is 10 in the darkness parameter.
+0 is the most amount of light can pass through and 10 is the least amount of light that can pass through.
+setRenderLayer
+
+function Block.setRenderLayer(id,renderLayer);
+Sets transparency on blocks.
+Render layer 1 is transparent.
+Render layer 2 is translucent.
+Render layer 0 is opaque.
+Renderer
+
+get
+
+function Renderer.get(id)
+Returns the renderer object with the given render type.
+
+createHumanoidRenderer
+
+function Renderer.createHumanoidRenderer()
+Creates a new render type with a human model.
+
+Methods and propertes on renderer objects
+
+renderType
+
+renderer.renderType
+A read-only variable holding the render type ID for this renderer.
+
+model
+
+renderer.model
+A read-only variable holding the model object for this renderer.
+
+Methods and properties on model objects
+
+getPart
+
+model.getPart("partName")
+Gets the model part by that given name. Currently defined names as of BlockLauncher 1.6.10:
+
+head
+body
+leftArm
+rightArm
+leftLeg
+rightLeg
+Methods and properties on modelPart objects
+
+This API was designed to resemble the Desktop Edition's ModelRenderer object, so documentation on that would help here.
+
+setTextureOffset
+
+modelPart.setTextureOffset(textureX, textureY, transparent)
+Sets the location on the skin file where the texture of this model part should be read from.
+
+addBox
+
+modelPart.addBox(xOffset, yOffset, zOffset, width, height, depth, scale)
+Adds a new box onto the model part.
+
+clear
+
+modelPart.clear()
+Removes (clears) a model part.
+
+setTextureSize
+
+modelPart.setTextureSize(width, height)
+setRotationPoint
+
+modelPart.setRotationPoint(x, y, z)
+Sets the point in which the model part rotates from.
