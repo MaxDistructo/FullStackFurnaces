@@ -82,6 +82,9 @@ setCraft(1517,1,0,["   ","a a","a a"],["a",1499,0])
 setItem(1518,"clock",0,"Daytime Clock");
 setItem(1519,"clock",0,"Nightime Clock");
 
+setCraft(1518,1,0,[" a ","aba"," a "],["a",399,0,"b",134,0]);
+set
+
 setDamage(1500,5000);
 setDamage(1501,5000);
 setDamage(1502,5000);
