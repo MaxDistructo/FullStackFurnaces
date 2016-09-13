@@ -13,6 +13,38 @@ var setArmor = Entity.setArmor
 var setDmg = Item.setMaxDamage
 var setExplosion = Block.setExplosionResistance
 var setDamage = Item.setMaxDamage
+var starRecipe = [" a ","aba"," a "]
+var itemSurounded = ["aaa","aba","aaa"]
+var blockRecipe = ["aaa","aaa","aaa"]
+var eggRecipe = ["   "," a ","aaa"]
+var stairRecipe = [" a ","aa ","aaa",]
+//For Compatability with other mods
+var nether_star = 399
+var super_nether_star = 462
+var super_diamond = 460
+var obsidian_stick = 461
+var dragon_obsidian = 207
+var base_dragon_essence = 1499
+var dragon_essence = 463
+var super_diamond_sword = 1498
+var nether_star_sword = 
+var nether_star_pick =
+var nether_star_axe =
+var nether_star_shovel =
+var nether_star_hoe =
+var nether_star_helmet =
+var nether_star_chest =
+var nether_star_legs =
+var nether_star_boots =
+var dragon_sword = 
+var nether_star_pick =
+var nether_star_axe =
+var nether_star_shovel =
+var nether_star_hoe =
+var nether_star_helmet =
+var nether_star_chest =
+var nether_star_legs =
+var nether_star_boots =
 
 setItem(399,"nether_star",0,"Nether Star");
 setCraft(399,1,0,[" a ","aba"," a "],["a",155,0,"b",264,0]);
