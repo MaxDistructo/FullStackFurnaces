@@ -85,6 +85,10 @@ setItem(1519,"clock",0,"Nightime Clock");
 setCraft(1518,1,0,[" a ","aba"," a "],["a",399,0,"b",134,0]);
 set
 
+setItem(1520,"blaze_rod",0,"LapisRedstone Sword")
+
+setCraft(1520,1,0,[" a "," b "," c "],["a",22,0])
+
 setDamage(1500,5000);
 setDamage(1501,5000);
 setDamage(1502,5000);
