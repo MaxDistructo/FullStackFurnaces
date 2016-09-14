@@ -4,6 +4,8 @@
 // Last Updated: 
 // Version: Beta 0.2
 // This will combine the Super OP Armor & Tools Mod with more features that can more easily be expanded upon
+// UPDATE: All Variables will be enacted in MDCore.js with a full list to enable better coding ability
+// with vanilla items. All other variables that are specific to this mod will stay here.
 
 //Super OP Armor and Tools Port
 var setItem =  ModPE.setItem
