@@ -1,4 +1,4 @@
-package io.github.maxdistructo;
+package io.github.maxdistructo.mditems;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -16,6 +16,6 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent e) {
-      updateCheck.startCheck();
+      
     }
 }
